@@ -77,11 +77,11 @@ msgstr ""
 
 #: templates/site_base.html:20
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: templates/site_base.html:21
 msgid "Notices"
-msgstr ""
+msgstr "Notificaciones"
 
 #: templates/site_base.html:28
 msgid "&copy; 2010 &lt;your company here&gt;"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: templates/site_base.html:29
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: templates/site_base.html:30
 msgid "Terms of Service"

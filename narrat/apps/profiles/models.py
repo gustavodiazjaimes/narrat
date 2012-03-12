@@ -5,7 +5,15 @@ from idios.models import ProfileBase
 
 
 class Profile(ProfileBase):
-    name = models.CharField(_("name"), max_length=50, null=True, blank=True)
+    first_name = models.CharField(_("first name"), max_length=30, null=True, blank=True)
+    last_name = models.CharField(_("last name"), max_length=30, null=True, blank=True)
     about = models.TextField(_("about"), null=True, blank=True)
     location = models.CharField(_("location"), max_length=40, null=True, blank=True)
     website = models.URLField(_("website"), null=True, blank=True, verify_exists=False)
+    
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+        user = self.user
+        user.first_name = self.first_name
+        user.last_name = self.last_name
+        user.save()

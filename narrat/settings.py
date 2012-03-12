@@ -4,6 +4,10 @@
 import os.path
 import posixpath
 
+from profiles.utils import fullname
+
+gettext = lambda s: s
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
@@ -42,11 +46,16 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "US/Eastern"
+TIME_ZONE = "America/Bogota"
+
+LANGUAGES = (
+    ('es', gettext('Spanish')),
+    ('en', gettext('English')),
+)
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es"
 
 SITE_ID = 1
 
@@ -105,8 +114,9 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django_openid.consumer.SessionConsumer",
+    #"django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "groups.middleware.GroupAwareMiddleware",
     "pinax.apps.account.middleware.LocaleMiddleware",
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
@@ -153,18 +163,22 @@ INSTALLED_APPS = [
     "pinax_theme_bootstrap",
     
     # external
+    "django_extensions",
     "notification", # must be first
     "staticfiles",
     "compressor",
     "debug_toolbar",
     "mailer",
-    "django_openid",
+    #"django_openid",
     "timezones",
     "emailconfirmation",
     "announcements",
     "pagination",
+    "avatar",
+    "groups",
     "idios",
     "metron",
+    "activelink",
     
     # Pinax
     "pinax.apps.account",
@@ -173,6 +187,9 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
+    
+    # Activity Stream
+    "actstream",
 ]
 
 FIXTURE_DIRS = [
@@ -196,6 +213,10 @@ ACCOUNT_REQUIRED_EMAIL = False
 ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
+
+ACCOUNT_USER_DISPLAY = fullname
+
+AVATAR_DEFAULT_SIZE = "56"
 
 AUTHENTICATION_BACKENDS = [
     "pinax.apps.account.auth_backends.AuthenticationBackend",
