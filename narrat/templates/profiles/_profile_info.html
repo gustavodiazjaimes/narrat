@@ -1,7 +1,26 @@
 {% load i18n %}
-<div class="profile_info">
-    {% if profile.name %}<p><b>{% trans "Name" %}</b>: {{ profile.name }}</p>{% endif %}
-    {% if profile.about %}<p><b>{% trans "About" %}</b>: {{ profile.about }}</p>{% endif %}
-    {% if profile.location %}<p><b>{% trans "Location" %}</b>: {{ profile.location }}</p>{% endif %}
-    {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %}
+{% load account_tags %}
+{% load avatar_tags %}
+<div class="profile_banner row">
+    <div class="profile_avatar span1">
+        <img class="avatar" src="{% avatar_url page_user 60 %}" width="60px" height="60px" alt="{% user_display page_user %}">
+    </div>
+    <div class="profile_name span8">
+        <h1>{% user_display page_user %}</h1>
+    </div>
+    <div class="profile_options span2 offset1">
+        {% if is_me %}
+            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-mini">Edit profile</a>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <dl class="profile_info dl-horizontal span6">
+    {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
+    {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
+    {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
+    </dl>
+    <div class="span6">
+        
+    </div>
 </div>

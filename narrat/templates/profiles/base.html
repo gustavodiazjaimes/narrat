@@ -1,0 +1,31 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block body_class %}profile{% endblock %}
+
+{% block body %}
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+    {% if is_me %}
+        <nav class="subnav">
+            {% block subnav %}
+                {% include "_subnav_bar.html" %}
+            {% endblock %}
+        </nav>
+    {% endif %}
+    <div class="row">
+        {% block columns %}
+            <nav class="span6 columns">
+                {% block navstaff %}
+                {% endblock %}
+            </nav>
+            <section class="span6 columns">
+                {% block section %}
+                {% endblock %}
+            </section>
+        {% endblock columns %}
+    </div>
+{% endblock body %}
