@@ -120,7 +120,7 @@ MIDDLEWARE_CLASSES = [
     "pinax.apps.account.middleware.LocaleMiddleware",
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = "narrat.urls"
@@ -145,6 +145,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "notification.context_processors.notification",
     "announcements.context_processors.site_wide_announcements",
+    "profiles.context_processors.profile"
 ]
 
 INSTALLED_APPS = [
@@ -201,7 +202,7 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
+    "auth.user": lambda o: "/user/%s/" % o.username,
 }
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
@@ -228,6 +229,8 @@ LOGOUT_REDIRECT_URLNAME = "home"
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
+
+ACTSTREAM_ACTION_MODELS = ['auth.User']
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,

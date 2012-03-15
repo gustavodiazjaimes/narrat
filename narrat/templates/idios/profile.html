@@ -15,15 +15,36 @@
 
 {% block columns %}
     <nav class="span6 columns">
-        {% block navstaff %}
-        {% endblock %}
+    <h2>{% trans "Projects" %}</h2>
+    {% block navstaff %}
+    {% endblock %}
     </nav>
     <section class="span6 columns">
-        {% block section %}
-        {% endblock %}
+    <h2>Following</h2>
+    comming soon...
+    {% comment %}
+        {% include 'activity/_pageuser_follow_actions.html' %}
+    {% endcomment %}
+    {% include 'activity/_pageuser_actions.html' %}
+
+    {% block section %}
+    {% endblock %}
     </section>
 {% endblock columns %}
 
+{% block extra_body %}
+    {% autoescape off %}
+    <script>
+        $(function () {
+            $("#follow_button, #unfollow_button").click(function () {
+                $.post($(this).attr("href"), {});
+                $(this).parent().find("#follow_button, #unfollow_button").toggle();
+                return false
+            });
+        });
+    </script>
+    {% endautoescape %}
+{% endblock extra_body %}
 
 {% comment %}
     {% block extra_body %}
