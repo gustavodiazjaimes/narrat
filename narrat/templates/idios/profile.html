@@ -1,6 +1,5 @@
 {% extends "profiles/base.html" %}
 
-
 {% load i18n %}
 {% load account_tags %}
 
@@ -9,41 +8,34 @@
     {% user_display page_user as user_display %}{% blocktrans %}Profile for {{ user_display }}{% endblocktrans %}
 {% endblock %}
 
-{% block header %}
+{% block header_content %}
     {% include "profiles/_profile_info.html" %}
 {% endblock %}
 
-{% block columns %}
-    <nav class="span6 columns">
+{% block navstaff %}
     <h2>{% trans "Projects" %}</h2>
-    {% block navstaff %}
-    {% endblock %}
-    </nav>
-    <section class="span6 columns">
-    <h2>Following</h2>
-    comming soon...
-    {% comment %}
-        {% include 'activity/_pageuser_follow_actions.html' %}
-    {% endcomment %}
-    {% include 'activity/_pageuser_actions.html' %}
+    <p>project list coming soon</p>
+{% endblock %}
 
-    {% block section %}
-    {% endblock %}
-    </section>
-{% endblock columns %}
+{% block section %}
+    {% include 'activity/_user.html' %}
+{% endblock %}
 
 {% block extra_body %}
-    {% autoescape off %}
-    <script>
+    <script> {# _profile_banner follow button #}
         $(function () {
-            $("#follow_button, #unfollow_button").click(function () {
+            $("#follow_button").click(function (event) {
+                event.preventDefault();
                 $.post($(this).attr("href"), {});
-                $(this).parent().find("#follow_button, #unfollow_button").toggle();
-                return false
+                location.reload();
             });
         });
     </script>
-    {% endautoescape %}
+    <script>
+        $(function () {
+            $(".name-tooltip").tooltip()
+        });
+    </script>
 {% endblock extra_body %}
 
 {% comment %}

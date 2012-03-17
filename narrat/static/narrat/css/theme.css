@@ -25,7 +25,10 @@ h6,
 }
 
 
-/*  */
+/* avatar */
+a.avatar {
+    display: inline-block;
+}
 img.avatar {
     vertical-align: middle;
 }
@@ -33,47 +36,94 @@ img.avatar {
 /* nav-header */
 .dropdown-toggle img {
     vertical-align: baseline;
-    margin-top: -10px;
-    margin-bottom: -11px;
+    margin-top: -8px;
+    margin-bottom: -9px;
     border:1px solid;
 }
 .dropdown-toggle:hover img {
     border:1px solid;
 }
 
-/* Profile Info */
+/* Header Profile Info */
 header {
-    margin-bottom: 38px;
+    margin-bottom: 36px;
 }
-header .profile_banner{
-    margin-bottom: 19px;
-}
-header dl.profile_info{
-    margin: 0;
+#header_banner{
+    margin-bottom: 18px;
 }
 header .profile_avatar,
 header .profile_options {
     text-align: center;
 }
+header dl.profile_info{
+    margin: 0;
+}
 @media (min-width: 980px) {
-    header .profile_name,
-    header .profile_options {
-        height: 60px;
+    header .profile_name {
+        height: 54px;
         display:-webkit-box;
         display:-moz-box;
         display: box;
-        -webkit-box-align:center;
-           -moz-box-align:center;
-                box-align:center;
+        -webkit-box-align: center;
+           -moz-box-align: center;
+                box-align: center;
+    }
+    header .profile_avatar,
+    header .profile_options {
+        height: 54px;
+        display:-webkit-box;
+        display:-moz-box;
+        display: box;
+        -webkit-box-align: center;
+           -moz-box-align: center;
+                box-align: center;
+        -webkit-box-pack: center;
+           -moz-box-pack: center;
+                box-pack: center;
     }
     
+}
+
+/* Content */
+
+.content h1,
+.content h2,
+.content h3 {
+  line-height: 27px;
+}
+.content h1 {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.content h2 {
+  font-size: 18px;
+}
+.content h3 {
+  font-size: 14px;
+}
+.content h4,
+.content h5,
+.content h6 {
+  line-height: 18px;
+}
+.content h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.content h5 {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.content h6 {
+  font-size: 10px;
+  text-transform: uppercase;
 }
 
 /* Subnav */
 .subnav {
   width: 100%;
   height: 36px;
-  margin-bottom: 19px;
+  margin-bottom: 18px;
   background-color: #eeeeee; /* Old browsers */
   background-repeat: repeat-x; /* Repeat the gradient */
   background-image: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%); /* FF3.6+ */
@@ -139,4 +189,19 @@ header .profile_options {
   -webkit-border-radius: 0 0 4px 4px;
      -moz-border-radius: 0 0 4px 4px;
           border-radius: 0 0 4px 4px;
+}
+
+/* Activity */
+ul.following{
+    margin: 0;
+}
+ul.following li{
+    display: inline-block;
+    margin-bottom: 4px;
+}
+ul.actions{
+    margin: 0;
+}
+ul.actions li{
+    margin-bottom: 4px;
 }

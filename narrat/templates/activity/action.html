@@ -1,15 +1,24 @@
 {% load i18n %}
-{% if action.actor.get_absolute_url %}
-    <a href="{{ action.actor.get_absolute_url }}">{{ action.actor }}</a>
-{% else %}
-    <a href="{{ action.actor_url }}">{{ action.actor }}</a>
-{% endif %}
-{{ action.verb }}
-{% if action.target %}
-    {% if action.target.get_absolute_url %}
-        <a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
+{% load account_tags %}
+<span>
+    <a href="{% if action.actor.get_absolute_url %}{{ action.actor.get_absolute_url }}{% else %}{{ action.actor_url }}{% endif %}">
+    {% if action.actor.get_profile %}
+        {% user_display action.actor %}
     {% else %}
-        <a href="{{ action.target_url }}">{{ action.target }}</a>
+        {{ action.actor }}
     {% endif %}
-{% endif %}
-{{ action.timestamp|timesince }} {% trans "ago" %}
+    </a>
+    {{ action.verb }}
+    {% if action.target %}
+        <a href="{% if action.target.get_absolute_url %}{{ action.target.get_absolute_url }}{% else %}{{ action.target_url }}{% endif %}">
+            {% if action.target.get_profile %}
+                {% user_display action.target %}
+            {% else %}
+                {{ action.target }}
+            {% endif %}
+        </a>
+    {% endif %}
+    {% with action_time=action.timestamp|timesince %}
+        {% blocktrans %}{{ action_time }} ago{% endblocktrans %}
+    {% endwith %}
+</span>

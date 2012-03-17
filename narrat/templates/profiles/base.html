@@ -6,26 +6,35 @@
 
 {% block body %}
     <header>
-        {% block header %}
+    {% block header_base %}
+        <div id="header_banner">
+        {% block header_banner %}
+            {% include "profiles/_profile_banner.html" %}
         {% endblock %}
+        </div>
+        <div id="header_content">
+        {% block header_content %}
+        {% endblock %}
+        </div>
+    {% endblock %}
     </header>
+    
     {% if is_me %}
-        <nav class="subnav">
-            {% block subnav %}
-                {% include "_subnav_bar.html" %}
-            {% endblock %}
-        </nav>
+        {% block subnav %}
+            {% include "_subnav_bar.html" %}
+        {% endblock %}
     {% endif %}
-    <div class="row">
-        {% block columns %}
-            <nav class="span6 columns">
-                {% block navstaff %}
-                {% endblock %}
-            </nav>
-            <section class="span6 columns">
-                {% block section %}
-                {% endblock %}
-            </section>
-        {% endblock columns %}
+    
+    <div class="content row">
+    {% block content %}
+        <nav class="span6 columns">
+        {% block navstaff %}
+        {% endblock %}
+        </nav>
+        <section class="span6 columns">
+        {% block section %}
+        {% endblock %}
+        </section>
+    {% endblock content %}
     </div>
 {% endblock body %}

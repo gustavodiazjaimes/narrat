@@ -2,29 +2,13 @@
 {% load account_tags %}
 {% load avatar_tags %}
 
-<div class="profile_banner row">
-    <div class="profile_avatar span1">
-        <img class="avatar" src="{% avatar_url page_user 60 %}" width="60px" height="60px" alt="{% user_display page_user %}">
-    </div>
-    <div class="profile_name span8">
-        <h1>{% user_display page_user %}</h1>
-    </div>
-    <div class="profile_options span2 offset1">
-        {% if is_me %}
-            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-mini">Edit profile</a>
-        {% else %}
-            {% if request.user.is_authenticated and page_user_ctype %}
-                <a href="{% url actstream_unfollow content_type_id=page_user_ctype.pk  object_id=page_user.pk %}" id="unfollow_button" class="btn btn-mini" {% if not is_following %}style="display:none" {% endif %}>{% trans "unfollow" %}</a>
-                <a href="{% url actstream_follow content_type_id=page_user_ctype.pk  object_id=page_user.pk %}" class="btn btn-mini" id="follow_button" {% if is_following %}style="display:none" {% endif %}>{% trans "follow" %}</a>
-            {% endif %}
-        {% endif %}
-    </div>
-</div>
 <div class="row">
     <dl class="profile_info dl-horizontal span6">
-    {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
-    {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
-    {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
+    {% with profile=page_user.get_profile %}
+        {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
+        {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
+        {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
+    {% endwith %}
     </dl>
     <div class="span6">
         

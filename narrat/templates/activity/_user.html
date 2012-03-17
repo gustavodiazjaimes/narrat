@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load account_tags %}
+{% load activity_tags activity_utils %}
+<h2>{% trans "Activities" %}</h3>
+
+<h3>{% trans "Following" %}</h3>
+<ul class="unstyled following">
+{% for follow in page_user.follow_set.all %}
+    <li>
+    {% display_actor_avatar follow.actor %}
+    </li>
+{% empty %}
+    {% trans "No follows yet" %}
+{% endfor %}
+</ul>
+
+<h3>{% trans "Actions" %}</h3>
+<ul class="unstyled actions">
+{% if not is_me %}
+    {% for action in page_user.actor_actions.all %}
+        <li>
+        {% display_actor_avatar action.actor %}
+        {% display_action action %}
+        </li>
+    {% empty %}
+        {% trans "No actions yet" %}
+    {% endfor %}
+{% else %}
+    {% user_stream page_user as page_user_stream %}
+    {% for action in page_user_stream %}
+        <li>
+        {% display_actor_avatar action.actor %}
+        {% display_action action %}
+        </li>
+    {% empty %}
+        {% trans "No actions yet" %}
+    {% endfor %}
+{% endif %}
+</ul>
