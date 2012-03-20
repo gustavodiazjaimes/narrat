@@ -8,24 +8,98 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-28 23:55+0200\n"
+"POT-Creation-Date: 2012-03-18 23:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: settings.py:52
+msgid "Spanish"
+msgstr ""
+
+#: settings.py:53
+msgid "English"
+msgstr ""
+
+#: apps/profiles/models.py:9
+msgid "first name"
+msgstr ""
+
+#: apps/profiles/models.py:10
+msgid "last name"
+msgstr ""
+
+#: apps/profiles/models.py:11
+msgid "about"
+msgstr "acerca"
+
+#: apps/profiles/models.py:12
+msgid "location"
+msgstr "ubicación"
+
+#: apps/profiles/models.py:13
+msgid "website"
+msgstr ""
+
+#: templates/_account_bar.html:13 templates/profiles/settings_base.html:22
+#: templates/profiles/settings_base.html:24
+msgid "Notices"
+msgstr ""
+
+#: templates/_account_bar.html:24 templates/profiles/settings_base.html:32
+msgid "Account"
+msgstr ""
+
+#: templates/_account_bar.html:26
+msgid "Admin"
+msgstr ""
+
+#: templates/_account_bar.html:29
+msgid "Log out"
+msgstr "Salir"
+
+#: templates/_account_bar.html:33
+msgid "Log in"
+msgstr "Ingresar"
+
+#: templates/_account_bar.html:35
+msgid "or"
+msgstr ""
+
+#: templates/_account_bar.html:36
+msgid "Sign up"
+msgstr ""
+
+#: templates/_footer.html:3
+msgid "&copy; 2012 INNOTEC"
+msgstr ""
+
+#: templates/_subnav_bar.html:5
+msgid "Storys"
+msgstr "Historias"
+
+#: templates/_subnav_bar.html:8
+msgid "Milestone"
+msgstr "Hitos"
+
+#: templates/_subnav_bar.html:11
+msgid "Resources"
+msgstr "Recursos"
 
 #: templates/homepage.html:6
 msgid "Welcome"
 msgstr ""
 
-#: templates/homepage.html:12
+#: templates/homepage.html:11
 msgid "Welcome to Pinax"
 msgstr ""
 
-#: templates/homepage.html:15
+#: templates/homepage.html:13
 msgid ""
 "\n"
 "        <b>Pinax</b> is a <a href=\"http://djangoproject.com/\">Django</a>\n"
@@ -36,71 +110,36 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/homepage.html:25
+#: templates/homepage.html:24
 msgid ""
 "\n"
-"        For more information about Pinax, see\n"
-"        <a href=\"http://pinaxproject.com/\">http://pinaxproject.com/</a>.\n"
+"        This project takes the account_project and adds profiles and "
+"notifications.\n"
+"        It is a foundation suitable for many sites that have user accounts "
+"with\n"
+"        profiles.\n"
 "        "
 msgstr ""
 
-#: templates/homepage.html:31
-msgid "About this project"
-msgstr ""
-
-#: templates/homepage.html:34
-msgid ""
-"\n"
-"        This project comes with the bare minimum set of applications and\n"
-"        templates to get you started. It includes no extra tabs, only the\n"
-"        profile and notices tabs are included by default. From here you can\n"
-"        add any extra functionality and applications that you would like.\n"
-"        "
-msgstr ""
-
-#: templates/homepage.html:45
-#, python-format
-msgid "Wondering <a href=\"%(what_next_url)s\">What Next</a>?"
-msgstr ""
-
-#: templates/homepage.html:50
+#: templates/homepage.html:33
 #, python-format
 msgid ""
-"You can <a href=\"%(signup_url)s\">Sign up</a> and <a href=\"%(login_url)s"
-"\">Log in</a> to try out the site."
+"Wondering <a href=\"%(what_next_url)s\" class=\"btn primary large\">What "
+"Next</a>?"
 msgstr ""
 
-#: templates/homepage.html:52
+#: templates/homepage.html:38
 #, python-format
-msgid "You can <a href=\"%(login_url)s\">Log in</a> to try out the site."
+msgid ""
+"You can <a href=\"%(login_url)s\" class=\"btn\">Log In</a> or <a href="
+"\"%(signup_url)s\" class=\"btn btn-primary\">Sign Up</a> to try out the site."
 msgstr ""
 
-#: templates/site_base.html:20
-msgid "Profile"
-msgstr "Perfil"
-
-#: templates/site_base.html:21
-msgid "Notices"
-msgstr "Notificaciones"
-
-#: templates/site_base.html:28
-msgid "&copy; 2010 &lt;your company here&gt;"
-msgstr ""
-
-#: templates/site_base.html:29
-msgid "About"
-msgstr "Acerca de"
-
-#: templates/site_base.html:30
-msgid "Terms of Service"
-msgstr ""
-
-#: templates/site_base.html:31
-msgid "Privacy Policy"
-msgstr ""
-
-#: templates/site_base.html:32
-msgid "DMCA Notice"
+#: templates/homepage.html:40
+#, python-format
+msgid ""
+"You can <a href=\"%(login_url)s\" class=\"btn btn-primary btn-large\">Log "
+"In</a> to try out the site."
 msgstr ""
 
 #: templates/about/what_next.html:6 templates/about/what_next.html.py:9
@@ -110,11 +149,150 @@ msgstr ""
 #: templates/about/what_next.html:35
 #, python-format
 msgid ""
-"Start by <a href=\"%(signup_url)s\">signing up</a> and <a href=\"%(login_url)"
-"s\">logging in</a>."
+"Start by <a href=\"%(signup_url)s\">signing up</a> and <a href="
+"\"%(login_url)s\">logging in</a>."
 msgstr ""
 
 #: templates/about/what_next.html:37
 #, python-format
 msgid "Start by <a href=\"%(login_url)s\">logging in</a>."
+msgstr ""
+
+#: templates/activity/_user.html:4
+msgid "Activities"
+msgstr "Actividades"
+
+#: templates/activity/_user.html:6
+msgid "Following"
+msgstr "Siguiendo"
+
+#: templates/activity/_user.html:13
+msgid "No follows yet"
+msgstr "No se sigue todavía"
+
+#: templates/activity/_user.html:17
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/activity/_user.html:26 templates/activity/_user.html.py:36
+msgid "No actions yet"
+msgstr "No hay acciones todavía"
+
+#: templates/activity/action.html:22
+#, python-format
+msgid "%(action_time)s ago"
+msgstr "hace %(action_time)s"
+
+#: templates/activity/detail.html:3
+#, python-format
+msgid "On %(date)s at %(time)s"
+msgstr "El %(date)s a las %(time)s"
+
+#: templates/avatar/change.html:6 templates/avatar/change.html.py:9
+#: templates/avatar/confirm_delete.html:5
+#: templates/avatar/confirm_delete.html:8
+#: templates/profiles/settings_base.html:14
+msgid "Avatar"
+msgstr ""
+
+#: templates/avatar/change.html:10
+msgid "Current avatar:"
+msgstr "Avatar actual"
+
+#: templates/avatar/change.html:26
+#, python-format
+msgid ""
+"Don&rsquo;t like these avatars? You can <a href=\"%(avatar_delete_url)s"
+"\">choose which ones to delete</a>."
+msgstr ""
+
+#: templates/avatar/change.html:31
+msgid "Upload an Avatar:"
+msgstr ""
+
+#: templates/avatar/change.html:32
+msgid "Avatar Image"
+msgstr ""
+
+#: templates/avatar/change.html:33
+msgid "Upload New Image"
+msgstr ""
+
+#: templates/idios/_profile_form.html:9
+msgid "Update"
+msgstr "Actualizar"
+
+#: templates/idios/_profile_form.html:10
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/idios/profile.html:8
+#, python-format
+msgid "Profile for %(user_display)s"
+msgstr "Perfil de %(user_display)s"
+
+#: templates/idios/profile.html:16
+msgid "Projects"
+msgstr "Proyectos"
+
+#: templates/idios/profile_edit_ajax.html:7
+#: templates/profiles/_profile_banner.html:15
+msgid "Edit Profile"
+msgstr ""
+
+#: templates/profiles/_profile_banner.html:18
+msgid "follow"
+msgstr "Seguir"
+
+#: templates/profiles/_profile_info.html:8
+msgid "About"
+msgstr "Acerca"
+
+#: templates/profiles/_profile_info.html:9
+msgid "Location"
+msgstr "Ubicación"
+
+#: templates/profiles/_profile_info.html:10
+msgid "Website"
+msgstr ""
+
+#: templates/profiles/settings_base.html:9
+#: templates/profiles/settings_base.html:11
+msgid "Profile"
+msgstr ""
+
+#: templates/profiles/settings_base.html:17
+msgid "All Profiles"
+msgstr ""
+
+#: templates/profiles/settings_base.html:27
+msgid "Settings"
+msgstr ""
+
+#: templates/profiles/settings_base.html:34
+msgid "Email Addresses"
+msgstr ""
+
+#: templates/profiles/settings_base.html:38
+msgid "OpenID Associations"
+msgstr ""
+
+#: templates/profiles/settings_base.html:43
+msgid "Change Password"
+msgstr ""
+
+#: templates/profiles/settings_base.html:47
+msgid "Set Password"
+msgstr ""
+
+#: templates/profiles/settings_base.html:52
+msgid "Delete Password"
+msgstr ""
+
+#: templates/profiles/settings_base.html:57
+msgid "Language"
+msgstr ""
+
+#: templates/profiles/settings_base.html:61
+msgid "Timezone"
 msgstr ""

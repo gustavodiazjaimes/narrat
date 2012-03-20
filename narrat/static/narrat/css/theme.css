@@ -35,20 +35,14 @@ img.avatar {
 
 /* nav-header */
 .dropdown-toggle img {
-    vertical-align: baseline;
-    margin-top: -8px;
-    margin-bottom: -9px;
-    border:1px solid;
-}
-.dropdown-toggle:hover img {
+    margin-top: -7px;
+    margin-bottom: -4px;
     border:1px solid;
 }
 
-/* Header Profile Info */
-header {
-    margin-bottom: 36px;
-}
-#header_banner{
+/* Header */
+header #header_banner,
+header #header_content{
     margin-bottom: 18px;
 }
 header .profile_avatar,
@@ -84,8 +78,19 @@ header dl.profile_info{
     
 }
 
-/* Content */
+/* Profiles */
+#profiles li{
+    padding-left: 29px;
+    min-height: 36px;
+    border-bottom: 1px solid #DDD
+}
+#profiles li img{
+    float: left;
+    margin-top: 1px;
+    margin-left: -29px;
+}
 
+/* Content */
 .content h1,
 .content h2,
 .content h3 {
@@ -203,5 +208,12 @@ ul.actions{
     margin: 0;
 }
 ul.actions li{
-    margin-bottom: 4px;
+    padding-left: 29px;
+    min-height: 27px;
+    border-bottom: 1px solid #DDD
+}
+ul.actions li a.avatar{
+    float: left;
+    margin-top: 1px;
+    margin-left: -29px;
 }

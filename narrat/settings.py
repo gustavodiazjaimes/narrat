@@ -145,7 +145,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "notification.context_processors.notification",
     "announcements.context_processors.site_wide_announcements",
-    "profiles.context_processors.profile",
 ]
 
 INSTALLED_APPS = [
@@ -180,6 +179,7 @@ INSTALLED_APPS = [
     "idios",
     "metron",
     "activelink",
+    "crispy_forms",
     
     # Pinax
     "pinax.apps.account",
@@ -189,6 +189,7 @@ INSTALLED_APPS = [
     "about",
     "profiles",
     "activity",
+    "projects",
     
     # Activity Stream
     "actstream",

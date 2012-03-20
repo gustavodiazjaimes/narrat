@@ -53,13 +53,21 @@
                 </div>
             </nav>
         {% endblock %}
+        
+        {% block header_base %}
+            <header id="header">
+                <div class="container">
+                    {% block header %}{% endblock %}
+                </div>
+            </header>
+        {% endblock %}
 
         {% block body_base %}
-            <section class="container">
+            <div class="container">
                 {% include "_messages.html" %}
                 {% block body %}
                 {% endblock %}
-            </section>
+            </div>
         {% endblock %}
 
         {% block footer_base %}

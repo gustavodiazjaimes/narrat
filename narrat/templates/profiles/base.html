@@ -2,39 +2,55 @@
 
 {% load i18n %}
 
-{% block body_class %}profile{% endblock %}
+{% block body_class %}profile{% if is_me %} isme{% endif %}{% endblock %}
 
-{% block body %}
-    <header>
-    {% block header_base %}
-        <div id="header_banner">
+{% block header %}
+    <div id="header_banner">
         {% block header_banner %}
             {% include "profiles/_profile_banner.html" %}
         {% endblock %}
-        </div>
-        <div id="header_content">
-        {% block header_content %}
-        {% endblock %}
-        </div>
-    {% endblock %}
-    </header>
-    
+    </div>
+    <div id="header_content">
+        {% block header_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block body %}    
     {% if is_me %}
-        {% block subnav %}
-            {% include "_subnav_bar.html" %}
-        {% endblock %}
+        {% include "_subnav_bar.html" %}
     {% endif %}
     
     <div class="content row">
-    {% block content %}
-        <nav class="span6 columns">
-        {% block navstaff %}
-        {% endblock %}
-        </nav>
-        <section class="span6 columns">
-        {% block section %}
-        {% endblock %}
-        </section>
-    {% endblock content %}
+    {% block content %}{% endblock %}
     </div>
 {% endblock body %}
+
+{% block extra_body %}
+    {# _profile_banner #follow_button #}
+    <script> {
+        $(function () {
+            $("#follow_button").click(function (event) {
+                event.preventDefault();
+                $.post($(this).attr("href"), {});
+                location.reload();
+            });
+        });
+    </script>
+    {# tooltips for avatar .name-tooltip #}
+    <script>
+        $(function () {
+            $(".name-tooltip").tooltip()
+        });
+    </script>
+    
+    {% comment %}
+    {# edit profile ajax modal box #}
+    <script>
+        $(function() {
+            $("#edit-profile-box").modal({
+                backdrop: true
+            });
+        });
+    </script>
+    {% endcomment %}
+{% endblock extra_body %}

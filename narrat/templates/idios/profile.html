@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load account_tags %}
 
-
 {% block head_title %}
     {% user_display page_user as user_display %}{% blocktrans %}Profile for {{ user_display }}{% endblocktrans %}
 {% endblock %}
@@ -12,40 +11,12 @@
     {% include "profiles/_profile_info.html" %}
 {% endblock %}
 
-{% block navstaff %}
-    <h2>{% trans "Projects" %}</h2>
-    <p>project list coming soon</p>
-{% endblock %}
-
-{% block section %}
-    {% include 'activity/_user.html' %}
-{% endblock %}
-
-{% block extra_body %}
-    <script> {# _profile_banner follow button #}
-        $(function () {
-            $("#follow_button").click(function (event) {
-                event.preventDefault();
-                $.post($(this).attr("href"), {});
-                location.reload();
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $(".name-tooltip").tooltip()
-        });
-    </script>
-{% endblock extra_body %}
-
-{% comment %}
-    {% block extra_body %}
-        <script>
-            $(function() {
-                $("#edit-profile-box").modal({
-                    backdrop: true
-                });
-            });
-        </script>
-    {% endblock %}
-{% endcomment %}
+{% block content %}
+    <nav class="span6 columns">
+        <h2>{% trans "Projects" %}</h2>
+        <p>project list coming soon</p>
+    </nav>
+    <section class="span6 columns">
+        {% include 'activity/_user.html' %}
+    </section>
+{% endblock content %}

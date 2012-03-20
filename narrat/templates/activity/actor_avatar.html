@@ -2,7 +2,7 @@
 {% load avatar_tags %}
 <a href="{% if actor.get_absolute_url %}{{ actor.get_absolute_url }}{% else %}{{ actor_url }}"{% endif %}" class="avatar">
 {% if actor.get_profile %}
-    <img src="{% avatar_url actor 24 %}" alt="{% user_display actor %}" data-original-title="{% user_display actor %}" class="avatar name-tooltip">
+    <img src="{% avatar_url actor 25 %}" alt="{% user_display actor %}" data-original-title="{% user_display actor %}" class="avatar name-tooltip">
 {% else %}
     <div class="avatar" height=24px weight=24px></div>
 {% endif %}

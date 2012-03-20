@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load account_tags %}
+{% load pagination_tags %}
 {% load activity_tags activity_utils %}
 <h2>{% trans "Activities" %}</h3>
 
@@ -17,23 +18,29 @@
 <h3>{% trans "Actions" %}</h3>
 <ul class="unstyled actions">
 {% if not is_me %}
-    {% for action in page_user.actor_actions.all %}
-        <li>
-        {% display_actor_avatar action.actor %}
-        {% display_action action %}
-        </li>
-    {% empty %}
-        {% trans "No actions yet" %}
-    {% endfor %}
+    {% with actions=page_user.actor_actions.all %}
+        {% autopaginate actions 10 %}
+        {% for action in actions %}
+            <li>
+            {% display_actor_avatar action.actor %}
+            {% display_action action %}
+            </li>
+        {% empty %}
+            {% trans "No actions yet" %}
+        {% endfor %}
+        {% paginate %}
+    {% endwith %}
 {% else %}
-    {% user_stream page_user as page_user_stream %}
-    {% for action in page_user_stream %}
-        <li>
-        {% display_actor_avatar action.actor %}
-        {% display_action action %}
-        </li>
-    {% empty %}
-        {% trans "No actions yet" %}
-    {% endfor %}
+    {% user_stream page_user as actions %}
+        {% autopaginate actions 10 %}
+        {% for action in actions %}
+            <li>
+            {% display_actor_avatar action.actor %}
+            {% display_action action %}
+            </li>
+        {% empty %}
+            {% trans "No actions yet" %}
+        {% endfor %}
+        {% paginate %}
 {% endif %}
 </ul>

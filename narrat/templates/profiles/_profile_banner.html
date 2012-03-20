@@ -12,7 +12,7 @@
     <div class="profile_options span2 offset1">
     {% if request.user.is_authenticated %}
         {% if is_me %}
-            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-mini">Edit profile</a>
+            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-mini">{% trans "Edit Profile" %}</a>
         {% else %}
             {% with is_following=request.user|is_following:page_user %}
                 <a href="{% activity_follow_url page_user %}" class="btn btn-mini{% if is_following %} active{% endif %}" id="follow_button">{% trans "follow" %}</a>

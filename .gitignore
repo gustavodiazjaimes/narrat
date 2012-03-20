@@ -1,2 +1,3 @@
-*.pyc 
 narrat/site_media*
+narrat/dev.db
+narrat.komodoproject
