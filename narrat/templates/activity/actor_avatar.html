@@ -1,9 +1,9 @@
 {% load account_tags %}
 {% load avatar_tags %}
-<a href="{% if actor.get_absolute_url %}{{ actor.get_absolute_url }}{% else %}{{ actor_url }}"{% endif %}" class="avatar">
+<a href="{% if actor.get_absolute_url %}{{ actor.get_absolute_url }}{% else %}{{ actor_url }}"{% endif %}" data-original-title="{% user_display actor %}" class="avatar name-tooltip">
 {% if actor.get_profile %}
-    <img src="{% avatar_url actor 25 %}" alt="{% user_display actor %}" data-original-title="{% user_display actor %}" class="avatar name-tooltip">
+    {% avatar actor 25 %}
 {% else %}
-    <div class="avatar" height=24px weight=24px></div>
+    <div class="avatar" height=25px weight=25px></div>
 {% endif %}
 </a>

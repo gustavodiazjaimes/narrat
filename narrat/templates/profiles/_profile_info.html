@@ -3,7 +3,7 @@
 {% load avatar_tags %}
 
 <div class="row">
-    <dl class="profile_info dl-horizontal span6">
+    <dl class="info dl-horizontal span6">
     {% with profile=page_user.get_profile %}
         {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
         {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}

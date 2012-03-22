@@ -163,6 +163,7 @@ INSTALLED_APPS = [
     "pinax_theme_bootstrap",
     
     # external
+    "south",
     "django_extensions",
     "notification", # must be first
     "staticfiles",
@@ -180,6 +181,7 @@ INSTALLED_APPS = [
     "metron",
     "activelink",
     "crispy_forms",
+    "actstream",
     
     # Pinax
     "pinax.apps.account",
@@ -190,9 +192,6 @@ INSTALLED_APPS = [
     "profiles",
     "activity",
     "projects",
-    
-    # Activity Stream
-    "actstream",
 ]
 
 FIXTURE_DIRS = [
@@ -217,7 +216,7 @@ ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 
-ACCOUNT_USER_DISPLAY = fullname
+ACCOUNT_USER_DISPLAY = lambda u: u.get_full_name() or u.username
 
 AVATAR_DEFAULT_SIZE = "56"
 
@@ -226,7 +225,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
-LOGIN_REDIRECT_URLNAME = "what_next"
+LOGIN_REDIRECT_URLNAME = "profile_redirect"
 LOGOUT_REDIRECT_URLNAME = "home"
 
 EMAIL_CONFIRMATION_DAYS = 2
