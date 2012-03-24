@@ -190,7 +190,7 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
-    "activity",
+    "activities",
     "projects",
 ]
 

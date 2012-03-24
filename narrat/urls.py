@@ -24,8 +24,9 @@ urlpatterns = patterns("",
     url(r'^avatar/', include('avatar.urls')),
     url(r"^user/", include("narrat.apps.profiles.urls")),
     url(r"^notices/", include("notification.urls")),
-    url(r"^announcements/", include("announcements.urls")),
-    url(r"^activities/", include('actstream.urls')),
+    #url(r"^announcements/", include("announcements.urls")),
+    url(r"^activities/", include('narrat.apps.activities.urls')),
+    url(r"^project/", include("narrat.apps.projects.urls")),
 )
 
 
