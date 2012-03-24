@@ -17,7 +17,7 @@
     </ul>
     
     <h3>{% trans "Actions" %}</h3>
-    <ul class="unstyled actions">
+    <ul class="unstyled clearfix actions">
     {% if not is_me %}
         {% with actions=page_user.actor_actions.all %}
             {% autopaginate actions 10 %}

@@ -55,10 +55,8 @@
         {% endblock %}
         
         {% block header_base %}
-            <header id="header">
-                <div class="container">
-                    {% block header %}{% endblock %}
-                </div>
+            <header id="header" class="container">
+                {% block header %}{% endblock %}
             </header>
         {% endblock %}
 
@@ -71,12 +69,8 @@
         {% endblock %}
 
         {% block footer_base %}
-            <footer id="footer">
-                <div class="inner">
-                    <div class="container">
-                        {% block footer %}{% endblock %}
-                    </div>
-                </div>
+            <footer id="footer" class="container">
+                {% block footer %}{% endblock %}
             </footer>
         {% endblock %}
         

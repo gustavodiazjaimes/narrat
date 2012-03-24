@@ -80,36 +80,35 @@ body {
 }
 
 /* Header */
-header #header_banner,
-header #header_content {
+header .banner,
+header .content {
     margin-bottom: 18px;
 }
-header #header_banner {
+header .banner {
     border-radius: 9px;
     background-color: #EEE;
     padding: 9px 0px;
 }
-#header_banner h1 {
+header .banner h1 {
     text-shadow: #fff 2px 2px;
 }
-#header_banner .options {
-    text-align: center;
-    
-}
-#header_banner .title {
+header .banner .title {
     padding-left: 72px;
     padding-right: 9px;
 }
-#header_banner .title .avatar{
+header .banner .title .avatar{
     float: left;
     margin-left: -54px;
 }
-#header_content dl.info{
+header .banner .options {
+    text-align: center;
+}
+header .content dl.info{
     margin: 0;
 }
 @media (min-width: 767px) {
-    #header_banner,
-    #header_banner h1 {
+    header .banner,
+    header .banner h1 {
         line-height: 54px;
     }
 }
@@ -117,10 +116,10 @@ header #header_banner {
 /* Profiles */
 #profiles li{
     padding-left: 29px;
-    min-height: 36px;
     border-bottom: 1px solid #DDD
 }
-#profiles li img{
+#profiles li .avatar{
+    display: block;
     float: left;
     margin-top: 1px;
     margin-left: -29px;
@@ -215,5 +214,4 @@ header #header_banner {
     float: left;
     margin-left: -29px;
     margin-top: 1px;
-    margin-bottom: 1px;
 }
