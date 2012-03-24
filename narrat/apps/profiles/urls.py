@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 
-from idios.views import ProfileListView, ProfileDetailView, ProfileCreateView, ProfileUpdateView
-from profiles.views import ProfileRedirectView
+from profiles.views import ProfileListView, ProfileDetailView, ProfileUpdateView, ProfileRedirectView
+
 
 urlpatterns = patterns("profiles.views",
     url(r"^$", ProfileRedirectView.as_view(), name="profile_redirect"),

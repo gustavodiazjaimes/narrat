@@ -1,0 +1,38 @@
+{% extends "profiles/base.html" %}
+
+{% load i18n %}
+{% load account_tags %}
+
+{% block head_title %}
+    {% user_display page_user as user_display %}{% blocktrans %}Profile for {{ user_display }}{% endblocktrans %}
+{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <dl class="info dl-horizontal span6">
+        {% with profile=page_user.get_profile %}
+            {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
+            {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
+            {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
+        {% endwith %}
+        </dl>
+        <div class="span6">
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="span6 columns">
+        <h2>{% trans "Projects" %}</h2>
+        <ul class="unstyled">
+        {% for membership in page_user.projects.memberships %}
+            <a href="{{ membership.project.get_absolute_url }}">{{ membership.project.name }}</a>
+        {% empty %}
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="span6 columns">
+        {% include 'activity/_user.html' %}
+    </div>
+{% endblock content %}
