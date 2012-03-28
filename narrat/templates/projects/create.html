@@ -1,0 +1,13 @@
+{% extends "projects/settings_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Create Project{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h2>{% trans "Create Project" %}</h2>
+        <p>{% trans "A <b>project</b> is a group of people working together on a common set of tasks." %}</p>
+            {% include "projects/_project_form.html" %}
+    {% endif %}
+{% endblock %}

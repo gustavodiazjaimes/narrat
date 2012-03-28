@@ -1,0 +1,21 @@
+{% load url from future %}
+{% load i18n %}
+{% load account_tags %}
+{% load avatar_tags %}
+{% load activity_tags %}
+<div class="row">
+    <div class="span9">
+        <div class="title">
+            <h1>{{ project.name }} <small>({{ project.slug }})</small></h1>
+        </div>
+    </div>
+    <div class="span2 offset1">
+        <div class="options">
+        {% if projectmember.get_membership == 'Leader' %}
+            <a id="edit-project-box" href="{% url "project_update" slug=project.slug %}" class="btn btn-info btn-mini">
+                {% trans "Edit Project" %}
+            </a>
+        {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block body_class %}project{% endblock %}
+
+{% block header %}
+    <div class="banner">
+        {% block header_banner %}
+            {% include "projects/_banner.html" %}
+        {% endblock %}
+    </div>
+    <div class="content">
+        {% block header_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if projectmember %}
+        {% include "projects/_subnav_bar.html" %}
+    {% endif %}
+    
+    <div class="content row">
+    {% block content %}{% endblock %}
+    </div>
+{% endblock body %}
+
+{% block extra_body %}
+    <script>
+        {# tooltips for avatar .name-tooltip #}
+        $(function () {
+            $(".name-tooltip").tooltip()
+        });
+    </script>
+{% endblock extra_body %}
