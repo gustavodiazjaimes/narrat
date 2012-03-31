@@ -5,13 +5,28 @@
 
 {% block extra_style %}
     <link href="{% static "narrat/css/theme.css" %}" rel="stylesheet">
+    <link href="{% static "narrat/css/tagit.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block footer %}
     {% include "_footer.html" %}
 {% endblock %}
 
+{% block extra_script %}
+    <script src="{% static "narrat/js/tagit.js" %}"></script>
+{% endblock %}
+
 {% block extra_body_base %}
     {% analytics %}
+    <script>
+        {# tooltips for avatar .name-tooltip #}
+        $(function () {
+            $(".name-tooltip").tooltip()
+        });
+        
+        $(function () {
+            $(".tagwidget").tagit({allowSpaces: true})
+        });
+    </script>
     {% block extra_body %}{% endblock %}
 {% endblock %}

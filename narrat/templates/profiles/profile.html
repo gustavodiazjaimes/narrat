@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account_tags %}
+{% load projects_tags %}
 
 {% block head_title %}
     {% user_display page_user as user_display %}{% blocktrans %}Profile for {{ user_display }}{% endblocktrans %}
@@ -10,29 +11,26 @@
 {% block header_content %}
     <div class="row">
         <dl class="info dl-horizontal span6">
-        {% with profile=page_user.get_profile %}
-            {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
-            {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
-            {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
-        {% endwith %}
+        {% if profile.about %}<dt>{% trans "About" %}</dt><dd>{{ profile.about }}</dd>{% endif %}
+        {% if profile.location %}<dt>{% trans "Location" %}</dt><dd>{{ profile.location }}</dd>{% endif %}
+        {% if profile.website %}<dt>{% trans "Website" %}</dt><dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>{% endif %}
         </dl>
         <div class="span6">
-            
+            {% comment %} {% endcomment %}
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="span6 columns">
+    <section id="projects" class="span6 columns">
         <h2>{% trans "Projects" %}</h2>
-        <ul class="unstyled">
-        {% for membership in page_user.projects.memberships %}
-            <a href="{{ membership.project.get_absolute_url }}">{{ membership.project.name }}</a>
-        {% empty %}
-        {% endfor %}
-        </ul>
-    </div>
-    <div class="span6 columns">
-        {% include 'activity/_user.html' %}
-    </div>
+        {% include "profiles/projects/_projects.html" %}
+    </section>
+    <section id="activities"class="span6 columns">
+        <h2>{% trans "Activities" %}</h3>
+        <h3>{% trans "Following" %}</h3>
+        {% include "profiles/activities/_follows.html" %}
+        <h3>{% trans "Actions" %}</h3>
+        {% include "profiles/activities/_actions.html" %}
+    </section>
 {% endblock content %}

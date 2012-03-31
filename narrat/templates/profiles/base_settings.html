@@ -9,11 +9,11 @@
 {% block header %}
     {% if user.is_authenticated %}
         {% with page_user=user is_me="True" %}
-        <div class="banner">
-            {% block header_banner %}
-                {% include "profiles/_banner.html" %}
-            {% endblock %}
-        </div>
+            <div class="banner">
+                {% block header_banner %}
+                    {% include "profiles/_banner.html" %}
+                {% endblock %}
+            </div>
         {% endwith %}
     {% endif %}
 {% endblock %}

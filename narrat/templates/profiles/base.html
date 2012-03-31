@@ -2,8 +2,9 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load profiles_tags %}
 
-{% block body_class %}profile{% if is_me %} is_me{% endif %}{% endblock %}
+{% block body_class %}profile{% if user|is_me:page_user %} is_me{% endif %}{% endblock %}
 
 {% block header %}
     <div class="banner">
@@ -17,12 +18,12 @@
 {% endblock %}
 
 {% block body %}    
-    {% if is_me %}
+    {% if user|is_me:page_user %}
         {% include "profiles/_subnav_bar.html" %}
     {% endif %}
     
     <div class="content row">
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 {% endblock body %}
 

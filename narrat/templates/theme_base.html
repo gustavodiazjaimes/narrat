@@ -14,9 +14,10 @@
         <![endif]-->
 
         {% block style_base %}
-            <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet">
+            <link href="{% static "external/css/custom-theme/jquery-ui-1.8.16.custom.css" %}" rel="stylesheet">
             <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
             <link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+            <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet">
             {% block extra_style %}{% endblock %}
         {% endblock %}
         
@@ -75,8 +76,9 @@
         {% endblock %}
         
         {% block script_base %}
-            <script src="{% static "pinax/js/jquery-1.7.1.min.js" %}"></script>
-            <script src="{% static "pinax/js/jquery.form.js" %}"></script>
+            <script src="{% static "external/js/jquery-1.7.1.min.js" %}"></script>
+            <script src="{% static "external/js/jquery-ui-1.8.18.custom.min.js" %}"></script>
+            <script src="{% static "external/js/jquery.form.js" %}"></script>
             <script src="{% static "bootstrap/js/bootstrap-alert.js" %}"></script>
             <script src="{% static "bootstrap/js/bootstrap-modal.js" %}"></script>
             <script src="{% static "bootstrap/js/bootstrap-button.js" %}"></script>

@@ -84,11 +84,11 @@ header .banner,
 header .content {
     margin-bottom: 18px;
 }
-header .banner {
+/*header .banner {
     border-radius: 9px;
     background-color: #EEE;
     padding: 9px 0px;
-}
+}*/
 header .banner h1 {
     text-shadow: #fff 2px 2px;
 }
@@ -198,20 +198,29 @@ header .content dl.info{
 }
 
 /* Activity */
+#activities ul{
+    margin-top: 9px;
+}
 #activities .following li{
     display: block;
     float: left;
     margin-top: 1px;
     margin-bottom: 1px;
 }
+#activities .following li .avatar{
+    display: block;
+    margin: 1px;
+}
 #activities .actions li{
     padding-left: 29px;
     min-height: 27px;
-    border-bottom: 1px solid #DDD
+    /* border-bottom: 1px solid #DDD */
+    margin-bottom: 9px;
 }
 #activities .actions li .avatar{
     display: block;
     float: left;
     margin-left: -29px;
     margin-top: 1px;
+    margin-bottom: 1px;
 }
