@@ -18,7 +18,10 @@
             {% endif %}
         </a>
     {% endif %}
-    {% with action_time=action.timestamp|timesince %}
-        {% blocktrans %}{{ action_time }} ago{% endblocktrans %}
-    {% endwith %}
+    
+    <time datetime="{{ action.timestamp }}" title="{{ action.timestamp }}">
+        {% with time_since=action.timestamp|timesince %}
+            {% blocktrans %}{{ time_since }} ago{% endblocktrans %}
+        {% endwith %}
+    </time>
 </span>
