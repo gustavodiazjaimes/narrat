@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load projects_tags %}
+<ul class="unstyled">
+    {% for projectmember in page_user.projects.activemember %}
+        <li>
+            {% show_project projectmember.project %}
+        </li>
+    {% empty %}
+        <li>
+            {% blocktrans %}No active member of any projects{% endblocktrans %}
+        </li>
+    {% endfor %}
+</ul>
