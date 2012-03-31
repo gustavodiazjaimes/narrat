@@ -2,12 +2,13 @@ from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils.translation import ugettext_lazy as _
 from django.utils.datastructures import SortedDict
 
 from django.contrib.auth.models import User
 
+from taggit.managers import TaggableManager
 from groups.base import Group
 
 from narrat.apps.projects import managers
@@ -20,6 +21,8 @@ class Project(Group):
         verbose_name = _("members")
     )
     
+    tags = TaggableManager()
+    
     # private means only members can see the project
     private = models.BooleanField(_("private"), default=False)
     
@@ -29,6 +32,13 @@ class Project(Group):
     
     def member_queryset(self):
         return self.member_users.filter(~Q(projects__membership=ProjectMember.MEMBERSHIP['Away']))
+    
+    def member_count(self):
+        return self.member_queryset().aggregate(Count('pk'))['pk__count']
+    
+    def tag_count(self):
+        return self.tags.all()
+        
     
     def user_is_member(self, user):
          return ProjectMember.objects.filter(project=self, user=user).exists()
@@ -42,7 +52,6 @@ class ProjectMember(models.Model):
         'Viewer' : 3,
         'Away' : 4
     }
-    MEMBERSHIP_REVERSE = dict((y, x) for (x, y) in MEMBERSHIP.iteritems())
     MEMBERSHIP_CHOICES = (
         (MEMBERSHIP['Leader'],      _('Leader')),
         (MEMBERSHIP['Participant'], _('Participant')),
@@ -80,8 +89,8 @@ class ProjectMember(models.Model):
             self.away_since = datetime.now
         super(ProjectMember, self).save(*args, **kwargs)
     
-    def get_membership(self):
-        return ProjectMember.MEMBERSHIP_REVERSE[self.membership]
+    def is_membership(self, membership):
+        return self.membership == ProjectMember.MEMBERSHIP[membership]
     
     def get_membership_display(self):
         return ProjectMember.MEMBERSHIP_CHOICES_DISPLAY[self.membership]

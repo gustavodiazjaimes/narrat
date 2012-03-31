@@ -1,6 +1,9 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load projects_tags %}
+
+{% set_projectmember project user as projectmember %}
 
 {% block body_class %}project{% endblock %}
 
@@ -24,12 +27,3 @@
     {% block content %}{% endblock %}
     </div>
 {% endblock body %}
-
-{% block extra_body %}
-    <script>
-        {# tooltips for avatar .name-tooltip #}
-        $(function () {
-            $(".name-tooltip").tooltip()
-        });
-    </script>
-{% endblock extra_body %}

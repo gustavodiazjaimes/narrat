@@ -121,6 +121,9 @@ MIDDLEWARE_CLASSES = [
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
+    'narrat.apps.profiles.middleware.ProfilesMiddleware',
+    'narrat.apps.projects.middleware.ProjectsMiddleware',
 ]
 
 ROOT_URLCONF = "narrat.urls"
@@ -174,6 +177,7 @@ INSTALLED_APPS = [
     "timezones",
     "emailconfirmation",
     "announcements",
+    "taggit",
     "pagination",
     "avatar",
     "groups",
@@ -218,7 +222,9 @@ ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 
 ACCOUNT_USER_DISPLAY = lambda u: u.get_full_name() or u.username
 
-AVATAR_DEFAULT_SIZE = "56"
+AVATAR_DEFAULT_SIZE = 56
+AVATAR_GRAVATAR_BACKUP = False
+AVATAR_DEFAULT_URL = "avatar/user.png"
 
 AUTHENTICATION_BACKENDS = [
     "pinax.apps.account.auth_backends.AuthenticationBackend",

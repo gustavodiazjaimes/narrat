@@ -4,11 +4,25 @@
 
 {% block body_class %}projects{% endblock %}
 
+{% block header %}
+    {% if project %}
+        <div class="banner">
+            {% block header_banner %}
+                {% include "projects/_banner.html" %}
+            {% endblock %}
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block subnav %}
     <ul class="nav nav-list">
         <li class="nav-header">{% trans "Project" %}</li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url project_create %}">{% trans "Create a Project" %}</a></li>
+        {% if project %}
+            <li><a href="{% url project_update slug=project.slug %}">{% trans "Update" %}</a></li>
+        {% else %}
+            {% if user.is_authenticated %}
+                <li><a href="{% url project_create %}">{% trans "Create" %}</a></li>
+            {% endif %}
         {% endif %}
         
         {% comment %}

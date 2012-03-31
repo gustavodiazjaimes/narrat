@@ -4,6 +4,23 @@
 {% load account_tags %}
 {% load avatar_tags %}
 
+{% block header_content %}
+    <div class="row">
+        <dl class="info dl-horizontal span6">
+        <dt>{% trans "Tags" %}</dt>
+        <dd>
+            {% for tag in project.tags.all %}
+                <span class="label">{{ tag }}</span>
+            {% endfor %}
+        </dd>
+        <dt>{% trans "Description" %}</dt><dd>{{ project.description }}</dd>
+        </dl>
+        <div class="span6">
+            {% comment %} {% endcomment %}
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <div class="span6 columns">
         <h2>{% trans "Members" %}</h2>

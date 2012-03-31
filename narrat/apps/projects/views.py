@@ -54,27 +54,10 @@ class ProjectDetailView(DetailView):
     context_object_name = "project"
     
     def get_context_data(self, **kwargs):
-        project = self.object
-        
-        if self.request.user.is_authenticated():
-            user = self.request.user
-        else:
-            user = None
-        
-        if user:
-            try:
-                projectmember = ProjectMember.objects.get(user=user, project=project)
-            except ProjectMember.DoesNotExist:
-                projectmember = None
-        else:
-            projectmember = None
-        
+
         group, bridge = group_and_bridge(kwargs)
         
         ctx = group_context(group, bridge)
-        ctx.update({
-            "projectmember": projectmember,
-        })
         ctx.update(
             super(ProjectDetailView, self).get_context_data(**kwargs)
         )
@@ -92,6 +75,7 @@ class ProjectCreateView(CreateView):
         project = form.save(commit=False)
         project.creator = self.request.user
         project.save()
+        project_form.save_m2m()
         project_member = ProjectMember(project=project, user=self.request.user,
                                        membership=ProjectMember.MEMBERSHIP['Leader'])
         project.members.add(project_member)

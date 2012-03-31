@@ -1,11 +1,9 @@
 {% load i18n %}
-
-<dt>{{ project.name }} (<a href="{{ project.get_absolute_url }}">{{ project.slug }}</a>)</dt>
-<dd>{{ project.description }}
-    <div class="stats">
-        {% trans "Members:" %} <b>{{ project.member_count }}</b>
-        <br />
-        {% trans "Topics:" %} <b>{{ project.topic_count }}</b>
-        <br />
-    </div>
-</dd>
+<h3>{{ project.name }} <small><a href="{{ project.get_absolute_url }}">({{ project.slug }})</a></small></h3>
+<span><i class="icon-user"></i> {{ project.member_count }}</span>
+<div class="tags">
+{% for tag in project.tags.all %}
+    <span class="label">{{ tag }}</span>
+{% endfor %}
+</div>
+<div>{{ project.description }}</div>
