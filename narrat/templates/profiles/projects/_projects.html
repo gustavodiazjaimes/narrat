@@ -2,7 +2,7 @@
 {% load projects_tags %}
 <ul class="unstyled">
     {% for projectmember in page_user.projects.activemember %}
-        <li>
+        <li class="project">
             {% show_project projectmember.project %}
         </li>
     {% empty %}

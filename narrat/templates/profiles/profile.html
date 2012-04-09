@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account_tags %}
+{% load profiles_tags %}
 {% load projects_tags %}
 
 {% block head_title %}
@@ -25,6 +26,11 @@
     <section id="projects" class="span6 columns">
         <h2>{% trans "Projects" %}</h2>
         {% include "profiles/projects/_projects.html" %}
+        {% if user|is_me:page_user %}
+            <div class="form-actions">
+                <a href="{% url project_create %}" class="btn">{% trans "Create Project" %}</a>
+            </div>
+        {% endif %}
     </section>
     <section id="activities"class="span6 columns">
         <h2>{% trans "Activities" %}</h3>

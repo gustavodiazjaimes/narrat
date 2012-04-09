@@ -21,6 +21,8 @@
 {% block body %}
     {% if projectmember %}
         {% include "projects/_subnav_bar.html" %}
+    {% else%}
+        <span class="divider"></span>
     {% endif %}
     
     <div class="content row">

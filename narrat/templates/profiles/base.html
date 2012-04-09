@@ -20,6 +20,8 @@
 {% block body %}    
     {% if user|is_me:page_user %}
         {% include "profiles/_subnav_bar.html" %}
+    {% else %}
+        <div class="divider"></div>
     {% endif %}
     
     <div class="content row">

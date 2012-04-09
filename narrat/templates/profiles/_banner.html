@@ -12,12 +12,13 @@
     </div>
     <div class="span2 offset1">
         <div class="options">
+        <span class="avatar">{% avatar page_user 25 %}</span>
         {% if user|is_me:page_user %}
-            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-info btn-mini">{% trans "Edit Profile" %}</a>
+            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-info">{% trans "Edit Profile" %}</a>
         {% else %}
             {% if user.is_authenticated %}
                 <a href="{% activity_follow_url page_user %}"
-                class="btn btn-mini{% if user|is_following:page_user %} active{% endif %}"
+                class="btn{% if user|is_following:page_user %} active{% endif %}"
                 id="follow_button">{% trans "follow" %}</a>
             {% endif %}
         {% endif %}
