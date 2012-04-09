@@ -1,16 +1,15 @@
 {% extends "projects/base.html" %}
 
 {% load i18n %}
-{% load account_tags %}
-{% load avatar_tags %}
+{% load projects_tags %}
 
 {% block header_content %}
     <div class="row">
         <dl class="info dl-horizontal span6">
-        <dt>{% trans "Tags" %}</dt>
+        <dt>{% trans "Keywords" %}</dt>
         <dd>
-            {% for tag in project.tags.all %}
-                <span class="label">{{ tag }}</span>
+            {% for keyword in project.keywords.all %}
+                <span class="label">{{ keyword }}</span>
             {% endfor %}
         </dd>
         <dt>{% trans "Description" %}</dt><dd>{{ project.description }}</dd>
@@ -24,11 +23,13 @@
 {% block content %}
     <div class="span6 columns">
         <h2>{% trans "Members" %}</h2>
-        {% for member in project.member_queryset %}
-            <a href="{{ member.get_absolute_url }}" data-original-title="{% user_display member %}" class="avatar name-tooltip">
-                {% avatar member 25 %}
-            </a>
-        {% endfor %}
+        <ul class="unstyled">
+            {% for projectmember in project.members.all %}
+                <li>
+                    {% show_projectmember projectmember %}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
     <div class="span6 columns">
         

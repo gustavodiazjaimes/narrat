@@ -1,9 +1,9 @@
 {% load i18n %}
-<h3>{{ project.name }} <small><a href="{{ project.get_absolute_url }}">({{ project.slug }})</a></small></h3>
+<strong>{{ project.name }} <small><a href="{{ project.get_absolute_url }}">({{ project.slug }})</a></small></strong>
 <span><i class="icon-user"></i> {{ project.member_count }}</span>
-<div class="tags">
-{% for tag in project.tags.all %}
-    <span class="label">{{ tag }}</span>
+<div class="keyword">
+{% for keyword in project.keywords.all %}
+    <span class="label">{{ keyword }}</span>
 {% endfor %}
 </div>
 <div>{{ project.description }}</div>

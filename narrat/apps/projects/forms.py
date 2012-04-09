@@ -35,7 +35,7 @@ class ProjectForm(forms.ModelForm):
     
     class Meta:
         model = Project
-        fields = ["name", "slug", "tags", "description"]
+        fields = ["name", "slug", "keywords", "description"]
 
 
 # @@@ is this the right approach, to have two forms where creation and update fields differ?
@@ -53,7 +53,7 @@ class ProjectUpdateForm(forms.ModelForm):
     
     class Meta:
         model = Project
-        fields = ["name", "tags", "description"]
+        fields = ["name", "keywords", "description"]
 
 
 class AddUserForm(forms.Form):

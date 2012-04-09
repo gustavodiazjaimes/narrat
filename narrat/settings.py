@@ -192,7 +192,9 @@ INSTALLED_APPS = [
     "pinax.apps.signup_codes",
     
     # project
+    "templateutils",
     "about",
+    "taglike",
     "profiles",
     "activities",
     "projects",

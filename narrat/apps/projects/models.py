@@ -12,6 +12,7 @@ from taggit.managers import TaggableManager
 from groups.base import Group
 
 from narrat.apps.projects import managers
+from narrat.apps.taglike.models import KeywordItem, RollItem
 
 
 class Project(Group):
@@ -20,8 +21,12 @@ class Project(Group):
         through = "ProjectMember",
         verbose_name = _("members")
     )
+    keywords = TaggableManager(
+        through = KeywordItem,
+        verbose_name=_("keywords")
+    )
+#   science = ???
     
-    tags = TaggableManager()
     
     # private means only members can see the project
     private = models.BooleanField(_("private"), default=False)
@@ -37,11 +42,10 @@ class Project(Group):
         return self.member_queryset().aggregate(Count('pk'))['pk__count']
     
     def tag_count(self):
-        return self.tags.all()
-        
+        return self.keywords.all()
     
     def user_is_member(self, user):
-         return ProjectMember.objects.filter(project=self, user=user).exists()
+        return ProjectMember.objects.filter(project=self, user=user).exists()
 
 
 class ProjectMember(models.Model):
@@ -72,6 +76,10 @@ class ProjectMember(models.Model):
         choices = MEMBERSHIP_CHOICES,
         default = MEMBERSHIP['Participant'],
     )
+    roles = TaggableManager(
+        through = RollItem,
+        verbose_name=_("roles")
+    )
     member_since = models.DateTimeField(_("away since"), default=datetime.now)
     away_since = models.DateTimeField(_("away since"), default=datetime.now)
     
@@ -79,6 +87,12 @@ class ProjectMember(models.Model):
     
     class Meta:
         unique_together = [("user", "project")]
+    
+    def __unicode__(self):
+        return _("%(user)s is member of %(project)s") % {
+            "user": self.project,
+            "project": self.user
+        }
     
     def __init__(self, *args, **kwargs):
         super(ProjectMember, self).__init__(*args, **kwargs)
