@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load account_tags %}
+{% load templateutils_tags %}
 <span>
     <a href="{% if action.actor.get_absolute_url %}{{ action.actor.get_absolute_url }}{% else %}{{ action.actor_url }}{% endif %}">
     {% if action.actor.get_profile %}
@@ -19,9 +20,5 @@
         </a>
     {% endif %}
     
-    <time datetime="{{ action.timestamp }}" title="{{ action.timestamp }}">
-        {% with time_since=action.timestamp|timesince %}
-            {% blocktrans %}{{ time_since }} ago{% endblocktrans %}
-        {% endwith %}
-    </time>
+    {% show_time action.timestamp %}
 </span>

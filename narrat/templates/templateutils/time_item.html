@@ -1,0 +1,6 @@
+{% load i18n %}
+{% with timeformat=timestamp|date:'Y-m-d h:i a' timesince=timestamp|timesince %}
+    <time datetime="{{ timestamp|date:"U" }}" title="{{ timeformat }}">
+            {% blocktrans %}{{ timesince }} ago{% endblocktrans %}
+    </time>
+{% endwith %}
