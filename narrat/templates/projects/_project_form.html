@@ -3,7 +3,6 @@
 {% load crispy_forms_tags %}
 <form class="form-horizontal" method="POST" action="">
     <fieldset>
-        {% csrf_token %}
         {% crispy project_form %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">{% trans "Create" %}</button>

@@ -59,24 +59,3 @@ class SetProjectMember(template.Node):
 
 
 register.tag('set_projectmember', SetProjectMember.set_context)
-
-# @@@ should move these next two as they aren't particularly project-specific
-
-
-@register.simple_tag
-def clear_search_url(request):
-    getvars = request.GET.copy()
-    if "search" in getvars:
-        del getvars["search"]
-    if len(getvars.keys()) > 0:
-        return "%s?%s" % (request.path, getvars.urlencode())
-    else:
-        return request.path
-
-
-@register.simple_tag
-def persist_getvars(request):
-    getvars = request.GET.copy()
-    if len(getvars.keys()) > 0:
-        return "?%s" % getvars.urlencode()
-    return ""

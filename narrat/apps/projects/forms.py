@@ -9,6 +9,10 @@ if "notification" in settings.INSTALLED_APPS:
 else:
     notification = None
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Hidden, Fieldset
+from ajax_select import make_ajax_field
+
 from narrat.apps.projects.models import Project, ProjectMember
 
 
@@ -19,9 +23,11 @@ from narrat.apps.projects.models import Project, ProjectMember
 
 class ProjectForm(forms.ModelForm):
     
-    slug = forms.SlugField(max_length=20,
-        help_text = _("a short version of the name consisting only of letters, numbers, underscores and hyphens."),
-    )
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+        
+        self.fields['slug'].help_text = _("a short version of the name consisting only of letters, numbers, underscores and hyphens.")
+        self.fields['keywords'].required = False
     
     def clean_slug(self):
         if Project.objects.filter(slug__iexact=self.cleaned_data["slug"]).exists():
@@ -43,6 +49,11 @@ class ProjectForm(forms.ModelForm):
 
 class ProjectUpdateForm(forms.ModelForm):
     
+    def __init__(self, *args, **kwargs):
+        super(ProjectUpdateForm, self).__init__(*args, **kwargs)
+        
+        self.fields['keywords'].required = False
+    
     def clean_name(self):
         if Project.objects.filter(name__iexact=self.cleaned_data["name"]).exists():
             if self.cleaned_data["name"] == self.instance.name:
@@ -53,7 +64,41 @@ class ProjectUpdateForm(forms.ModelForm):
     
     class Meta:
         model = Project
-        fields = ["name", "keywords", "description"]
+        fields = ['name', 'keywords', 'description']
+
+
+class ProjectMemberForm(forms.ModelForm):
+    
+    #user = make_ajax_field(ProjectMember,'user','user',help_text=None)
+    
+    def __init__(self, *args, **kwargs):
+        super(ProjectMemberForm, self).__init__(*args, **kwargs)
+        
+        self.fields['roles'].required = False
+        self.fields['project'].widget = forms.HiddenInput()
+        
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            self.fields['project'].widget.attrs['readonly'] = True
+            self.fields['user'].widget.attrs['readonly'] = True
+    
+    def clean_project(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            return self.instance.project
+        
+        return self.cleaned_data['project']
+        
+    def clean_user(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.id:
+            return self.instance.user
+        
+        return self.cleaned_data['user']
+    
+    class Meta:
+        model = ProjectMember
+        fields = ['project', 'user', 'membership', 'roles']
 
 
 class AddUserForm(forms.Form):

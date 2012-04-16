@@ -7,10 +7,9 @@ class ProjectsMiddleware(object):
             project = response.context_data.get('project', None)
             projectmember = response.context_data.get('projectmember', None)
             
-            if project and projectmember == None:
-                try:
-                    projectmember = ProjectMember.objects.activemember().get(user=request.user, project=project)
-                except ProjectMember.DoesNotExist:
+            if project and not projectmember:
+                projectmember = project.members.active(user=request.user, project=project)
+                if not projectmember.exists():
                     projectmember = None
                 
                 response.context_data['projectmember'] = projectmember

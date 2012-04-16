@@ -1,18 +1,21 @@
-from django.db import models
+from django.db.models import Manager
+from django.db.models.query import QuerySet
 from django.db.models import Q
 
 
-class ProjectManager(models.Manager):
+class ProjectMemberQuerySet(QuerySet):
+    
+    def active(self, **kwargs):
+        return self.filter(~Q(membership=4), **kwargs) #not away
+
+class ProjectMemberManager(Manager):
     """
     Manager for ProjectMember model.
     """
-    def member_count(self):
-        return self.filter(~Q(membership=4))
-
-
-class ProjectMemberManager(models.Manager):
-    """
-    Manager for ProjectMember model.
-    """
-    def activemember(self):
-        return self.filter(~Q(membership=4))
+    
+    def active(self, **kwargs):
+        return self.all().active(**kwargs)
+    
+    def get_query_set(self):
+        return ProjectMemberQuerySet(self.model)
+    

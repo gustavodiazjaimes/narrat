@@ -18,7 +18,8 @@
     <ul class="nav nav-list">
         <li class="nav-header">{% trans "Project" %}</li>
         {% if project %}
-            <li><a href="{% url project_update slug=project.slug %}">{% trans "Update" %}</a></li>
+            <li><a href="{% url projectmember_update project_slug=project.slug %}">{% trans "Project Members" %}</a></li>
+            <li><a href="{% url project_update project_slug=project.slug %}">{% trans "Update" %}</a></li>
         {% else %}
             {% if user.is_authenticated %}
                 <li><a href="{% url project_create %}">{% trans "Create" %}</a></li>

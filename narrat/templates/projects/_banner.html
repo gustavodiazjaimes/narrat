@@ -10,7 +10,7 @@
     <div class="span2 offset1">
         <div class="options">
         {% if projectmember|is_membership:'Leader' %}
-            <a id="edit-project-box" href="{% url "project_update" slug=project.slug %}" class="btn btn-info">
+            <a id="edit-project-box" href="{% url "project_update" project_slug=project.slug %}" class="btn btn-info">
                 {% trans "Edit Project" %}
             </a>
         {% endif %}

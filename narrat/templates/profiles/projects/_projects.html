@@ -1,7 +1,8 @@
 {% load i18n %}
 {% load projects_tags %}
+{% load profiles_tags %}
 <ul class="unstyled">
-    {% for projectmember in page_user.projects.activemember %}
+    {% for projectmember in page_user.projects.active %}
         <li class="project">
             {% show_project projectmember.project %}
         </li>
@@ -11,3 +12,8 @@
         </li>
     {% endfor %}
 </ul>
+{% if user|is_me:page_user %}
+    <div class="form-actions">
+        <a href="{% url project_create %}" class="btn">{% trans "Create Project" %}</a>
+    </div>
+{% endif %}
