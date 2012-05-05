@@ -1,0 +1,25 @@
+{% extends "project/project_base_config.html" %}
+
+{% load url from future %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% blocktrans %}Create Project{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h2>{% trans "Create Project" %}</h2>
+        {% blocktrans %}
+            <p>A <b>project</b> is a group of people working together on a common set of tasks.</p>
+        {% endblocktrans %}
+        <form class="form-horizontal" method="POST" action="">
+            <fieldset>
+                {% crispy project_form %}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">{% trans "Create" %}</button>
+                    <a href="{% url "profile_detail" username=user.username %}" class="btn">{% trans "Cancel" %}</a>
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "project/project_base.html" %}
+
+{% load i18n %}
+{% load project_tags %}
+
+{% block header_content %}
+    <div class="row">
+        <dl class="info dl-horizontal span6">
+            <dt>{% trans "Keywords" %}</dt>
+            <dd>
+                {% for keyword in project.keywords.all %}
+                    <span class="label">{{ keyword }}</span>
+                {% endfor %}
+            </dd>
+            <dt>{% trans "Description" %}</dt>
+            <dd>{{ project.description }}</dd>
+        </dl>
+        <div class="span6">
+            {% comment %} @@@ statistics here!! {% endcomment %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="span6 columns">
+        <h2>{% trans "Members" %}</h2>
+        <ul class="unstyled">
+            {% for member in project.members.all %}
+                <li>
+                    <div class="row">
+                        <div class="span3">
+                            {% show_member member %}
+                        </div>
+                        <div class="span3">
+                            {% comment %}
+                            @@@ statistics of member here!!
+                            {% show_member member "stat" %}
+                            {% endcomment %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="span6 columns">
+        {% comment %} @@@ activities over project here!! {% endcomment %}
+    </div>
+{% endblock content %}

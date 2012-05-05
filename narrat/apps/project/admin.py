@@ -1,10 +1,10 @@
 from django.contrib import admin
-from narrat.apps.projects.models import Project
+from narrat.apps.project.models import Project
 
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "creator", "created"]
+    list_display = ["name", "slug", "started"]
 
 
 

@@ -1,7 +1,14 @@
+from __future__ import absolute_import
+
 from django.conf import settings
 from django.db.models import signals
 from django.utils.translation import ugettext_noop as _
 
+import project.models as project_app
+from .models import project_install
+
+
+signals.post_syncdb.connect(project_install, sender=project_app)
 
 
 if "notification" in settings.INSTALLED_APPS:
@@ -16,3 +23,14 @@ if "notification" in settings.INSTALLED_APPS:
     signals.post_syncdb.connect(create_notice_types, sender=notification)
 else:
     print "Skipping creation of NoticeTypes as notification app not found"
+
+
+#if "notification" in settings.INSTALLED_APPS:
+#    from notification import models as notification
+#else:
+#    notification = None
+
+#if notification:
+#    notification.send(User.objects.all(), "projects_new_project",
+#        {"project": project}, queue=True)
+

@@ -1,31 +1,31 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
-{% load projects_tags %}
+{% load project_tags %}
 
-{% set_projectmember project user as projectmember %}
+{% set_member project user as member %}
 
 {% block body_class %}project{% endblock %}
 
 {% block header %}
     <div class="banner">
         {% block header_banner %}
-            {% include "projects/_banner.html" %}
+            {% include "project/_project_banner.html" %}
         {% endblock %}
     </div>
     <div class="content">
         {% block header_content %}{% endblock %}
     </div>
-{% endblock %}
-
-{% block body %}
-    {% if projectmember %}
-        {% include "projects/_subnav_bar.html" %}
+    
+    {% if member.is_active %}
+        {% include "project/_subnav_bar.html" %}
     {% else%}
         <span class="divider"></span>
     {% endif %}
-    
+{% endblock %}
+
+{% block body %}
     <div class="content row">
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 {% endblock body %}

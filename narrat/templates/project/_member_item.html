@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load show_timesince from narrat_utils_tags %}
+{% load account_tags %}
+{% load avatar_tags %}
+{% load project_tags %}
+
+{% if data == "info" %}
+    <div class="member-info">
+        <a href="{{ member.user.get_absolute_url }}" class="avatar">
+            {% avatar member.user 25 %}
+        </a>
+        <div>
+            <a href="{{ member.user.get_absolute_url }}" class="title">
+                <strong>{% user_display member.user %}</strong>
+            </a>
+        </div>
+        <div>
+            {{ member.get_membership_display }} -
+            {% for badge in member.badges.all %}
+                <span class="label">{{ badge }}</span>
+            {% endfor %}
+        </div>
+        <div class="time">
+            {% if not member|is_role:'Away' %}
+                {% trans "Since" %}
+                {% show_timesince member.member_since %}
+            {% else %}
+                {% trans "For" %}
+                {% show_timesince member.member_since member.away_since ""%}
+                -
+                {% show_timesince member.away_since %}
+            {% endif %}
+        </div>
+    </div>
+{% elif data == "stat" %}
+    <div class="member-data">
+        {% comment %} @@@ statistics here!! {% endcomment %}
+    </div>
+{% endif %}

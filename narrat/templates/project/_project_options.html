@@ -1,0 +1,13 @@
+{% load url from future %}
+{% load i18n %}
+{% load project_tags %}
+
+{% if member|has_perm:'project_update' %}
+    <li><a href="{% url 'project_update' project_slug=project.slug %}">{% trans "Update" %}</a></li>
+    <li><a href="{% url 'project:members_update' project_slug=project.slug %}">{% trans "Members" %}</a></li>
+    <li><a href="{% url 'project_delete' project_slug=project.slug %}">{% trans "Delete" %}</a></li>
+{% else %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'project_create' %}">{% trans "Create" %}</a></li>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,27 @@
+{% load url from future %}
+{% load i18n %}
+{% load project_tags %}
+<div class="row">
+    <div class="span9">
+        <div class="title">
+            <a href="{% url 'project_detail' project_slug=project.slug %}">
+                <h1>{{ project.name }} <small>({{ project.slug }})</small></h1>
+            </a>
+        </div>
+    </div>
+    <div class="span2 offset1">
+        <div class="options">
+        {% if member|has_perm:'project_update' %}
+            <div class="btn-group">
+                <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    {% trans "Edit Project" %}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    {% include "project/_project_options.html" %}
+                </ul>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</div>

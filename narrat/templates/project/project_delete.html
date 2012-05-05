@@ -1,0 +1,25 @@
+{% extends "project/project_base_config.html" %}
+
+{% load i18n %}
+{% load url from future %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% blocktrans %}Project Members{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h2>{% trans "Project Delete" %}</h2>
+        <p>
+            <b>{{project.name}}</b>
+        </p>
+        <form class="form-horizontal" method="POST" action="">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
+                    <a href="{% url "profile_detail" username=user.username %}" class="btn">{% trans "Cancel" %}</a>
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}
