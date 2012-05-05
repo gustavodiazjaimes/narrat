@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if not timeto %}
+    {% with timeformat=timefrom|date:'Y-m-d h:i a' timesince=timefrom|timesince %}
+        <time datetime="{{ timefrom|date:"U" }}" title="{{ timeformat }}">
+            <small>{% blocktrans %}{{ timesince }} {{ adverb }}{% endblocktrans %}</small>
+        </time>
+    {% endwith %}
+{% else %}
+    {% with timeformat=timefrom|date:'Y-m-d h:i a' timesince=timefrom|timesince:timeto %}
+        <time datetime="{{ timefrom|date:"U" }}" title="{{ timeformat }}">
+            <small>{% blocktrans %}{{ timesince }} {{ adverb }}{% endblocktrans %}</small>
+        </time>
+    {% endwith %}
+{% endif %}
