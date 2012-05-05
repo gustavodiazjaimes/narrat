@@ -1,5 +1,6 @@
-{% extends "profiles/base_settings.html" %}
+{% extends "profile/profile_base_config.html" %}
 
+{% load url from future %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -7,13 +8,13 @@
 
 {% block body %}
     <h2>{% trans "Edit Profile" %}</h2>
-      <form class="form-horizontal" method="POST" action="{% url profile_edit %}">
+      <form class="form-horizontal" method="POST" action="{% url 'profile_update' %}">
           <fieldset>
               {% csrf_token %}
               {% crispy profile_form %}
               <div class="form-actions">
                   <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
-                  <a href="{% url profile_detail profile.user.username %}" class="btn">{% trans "Cancel" %}</a>
+                  <a href="{% url 'profile_detail' profile.user.username %}" class="btn">{% trans "Cancel" %}</a>
               </div>
           </fieldset>
       </form>

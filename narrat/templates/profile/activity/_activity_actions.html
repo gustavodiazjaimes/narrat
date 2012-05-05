@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load account_tags %}
+{% load pagination_tags %}
+{% load profile_tags %}
+{% load avatar_tags %}
+{% load activity_tags activity_wrap_tags %}
+<ul class="unstyled clearfix actions">
+    {% if user|is_me:page_user %}
+        {% set_stream 'user_stream' page_user as actions %}
+    {% else %}
+        {% set_stream 'actor_stream' page_user as actions %}
+    {% endif %}
+    
+    {% autopaginate actions 25 %}
+        {% for action in actions %}
+            {% with actor=action.actor %}
+                <li>
+                    <a href="{{ actor.get_absolute_url }}" title="{% user_display actor %}" rel="tooltip" class="avatar">
+                        {% avatar actor 25 %}
+                    </a>
+                    {% display_action action %}
+                </li>
+            {% endwith %}
+        {% empty %}
+            {% trans "No actions yet" %}
+        {% endfor %}
+    {% paginate %}
+</ul>

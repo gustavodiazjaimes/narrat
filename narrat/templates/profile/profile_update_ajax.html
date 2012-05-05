@@ -7,7 +7,7 @@
         <h3>{% trans "Edit Profile" %}</h3>
     </div>
     
-    <form class="ajax" method="POST" action="{% url profile_edit %}">
+    <form class="ajax" method="POST" action="{% url profile_update %}">
         {% csrf_token %}
         
         <div class="modal-body">

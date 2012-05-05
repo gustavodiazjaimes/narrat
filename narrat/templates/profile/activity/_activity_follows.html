@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load account_tags %}
+{% load avatar_tags %}
+<ul class="clearfix unstyled following">
+    {% for follow in page_user.follow_set.all %}
+        {% with actor=follow.actor %}
+            <li>
+                <a href="{{ actor.get_absolute_url }}" title="{% user_display actor %}" rel="tooltip" class="avatar">
+                        {% avatar actor 25 %}
+                </a>
+            </li>
+        {% endwith %}
+    {% empty %}
+        {% trans "No follows yet" %}
+    {% endfor %}
+</ul>

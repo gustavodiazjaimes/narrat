@@ -1,20 +1,24 @@
 {% load i18n %}
 {% load account_tags %}
 {% load avatar_tags %}
-{% load profiles_tags %}
+{% load profile_tags %}
 {% load activity_tags %}
 <div class="row">
     <div class="span9">
         <div class="title">
-            <span class="avatar">{% avatar page_user 36 %}</span>
-            <h1>{% user_display page_user %} <small>({{ page_user.username }})</small></h1>
+            <a href="{{ page_user.get_absolute_url }}">
+                <span class="avatar">
+                    {% avatar page_user 36 %}
+                </span>
+                <h1>{% user_display page_user %} <small>({{ page_user.username }})</small></h1>
+            </a>
         </div>
     </div>
     <div class="span2 offset1">
         <div class="options">
         <span class="avatar">{% avatar page_user 25 %}</span>
         {% if user|is_me:page_user %}
-            <a id="edit-profile-box" href="{% url profile_edit %}" class="btn btn-info">{% trans "Edit Profile" %}</a>
+            <a id="edit-profile-box" href="{% url profile_update %}" class="btn btn-info">{% trans "Edit Profile" %}</a>
         {% else %}
             {% if user.is_authenticated %}
                 <a href="{% activity_follow_url page_user %}"
