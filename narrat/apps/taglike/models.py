@@ -24,21 +24,21 @@ class KeywordItem(GenericTaggedItemBase):
         }
 
 
-class Role(TagBase):
+class Badge(TagBase):
     class Meta:
-        verbose_name = _("Role")
-        verbose_name_plural = _("Roles")
+        verbose_name = _("Badge")
+        verbose_name_plural = _("Badges")
 
 
-class RollItem(GenericTaggedItemBase):
-    tag = models.ForeignKey(Role, related_name="%(app_label)s_%(class)s_items")
+class BadgeItem(GenericTaggedItemBase):
+    tag = models.ForeignKey(Badge, related_name="%(app_label)s_%(class)s_items")
     
     class Meta:
-        verbose_name = _("Role Item")
-        verbose_name_plural = _("Role Items")
+        verbose_name = _("Badge Item")
+        verbose_name_plural = _("Badge Items")
     
     def __unicode__(self):
-        return ugettext("%(object)s with role %(tag)s") % {
+        return ugettext("%(object)s with badge %(tag)s") % {
             "object": self.content_object,
             "tag": self.tag
         }

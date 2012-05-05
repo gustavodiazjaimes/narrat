@@ -4,7 +4,7 @@
 import os.path
 import posixpath
 
-from profiles.utils import fullname
+from profile.utils import fullname
 
 gettext = lambda s: s
 
@@ -122,8 +122,7 @@ MIDDLEWARE_CLASSES = [
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     
-    'narrat.apps.profiles.middleware.ProfilesMiddleware',
-    'narrat.apps.projects.middleware.ProjectsMiddleware',
+    "narrat.apps.spaceview.middleware.SpaceviewMiddleware"
 ]
 
 ROOT_URLCONF = "narrat.urls"
@@ -143,7 +142,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "staticfiles.context_processors.static",
     
     "pinax.core.context_processors.pinax_settings",
-    
     "pinax.apps.account.context_processors.account",
     
     "notification.context_processors.notification",
@@ -186,18 +184,21 @@ INSTALLED_APPS = [
     "activelink",
     "crispy_forms",
     "actstream",
+    "ajax_select",
+    "permissions",
     
     # Pinax
     "pinax.apps.account",
     "pinax.apps.signup_codes",
     
     # project
-    "templateutils",
-    "about",
+    "spaceview",
+    "narrat_utils",
+    "activity_wrap",
     "taglike",
-    "profiles",
-    "activities",
-    "projects",
+    "profile",
+    "project",
+    "about",
 ]
 
 FIXTURE_DIRS = [
@@ -212,7 +213,7 @@ ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda o: "/user/%s/" % o.username,
 }
 
-AUTH_PROFILE_MODULE = "profiles.Profile"
+AUTH_PROFILE_MODULE = "profile.Profile"
 NOTIFICATION_LANGUAGE_MODULE = "account.Account"
 
 ACCOUNT_OPEN_SIGNUP = True
@@ -221,15 +222,21 @@ ACCOUNT_REQUIRED_EMAIL = False
 ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
-
 ACCOUNT_USER_DISPLAY = lambda u: u.get_full_name() or u.username
 
-AVATAR_DEFAULT_SIZE = 56
+AJAX_LOOKUP_CHANNELS = {
+    'user'   : {'model':'auth.user', 'search_field':'username'},
+}
+AJAX_SELECT_BOOTSTRAP = False
+AJAX_SELECT_INLINES = 'inline'
+
+AVATAR_DEFAULT_SIZE = 25
 AVATAR_GRAVATAR_BACKUP = False
 AVATAR_DEFAULT_URL = "avatar/user.png"
 
 AUTHENTICATION_BACKENDS = [
     "pinax.apps.account.auth_backends.AuthenticationBackend",
+    'permissions.backend.ObjectPermissionsBackend',
 ]
 
 LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
@@ -244,6 +251,10 @@ ACTSTREAM_ACTION_MODELS = ['auth.User']
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+SPACEVIEW_SPACES = [
+    'narrat.apps.project.views.ProjectSpace',
+]
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

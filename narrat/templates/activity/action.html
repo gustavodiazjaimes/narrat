@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load account_tags %}
-{% load templateutils_tags %}
+{% load show_timesince narrat_utils_tags %}
 <span>
     <a href="{% if action.actor.get_absolute_url %}{{ action.actor.get_absolute_url }}{% else %}{{ action.actor_url }}{% endif %}">
     {% if action.actor.get_profile %}
@@ -20,5 +20,5 @@
         </a>
     {% endif %}
     
-    {% show_time action.timestamp %}
+    {% show_timesince action.timestamp %}
 </span>

@@ -19,9 +19,8 @@
 {% block extra_body_base %}
     {% analytics %}
     <script>
-        {# tooltips for avatar .name-tooltip #}
         $(function () {
-            $(".name-tooltip").tooltip()
+            $("a[rel=tooltip], span[rel=tooltip]").tooltip()
         });
         
         $(function () {
