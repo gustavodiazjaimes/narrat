@@ -9,21 +9,14 @@ class SpaceMixin(DetailView):
     Namespace object like class based view
     """
     namespace_name = None
-    
-#   model = None
-#   queryset = None
-#   slug_field = 'slug'
-#   context_object_name = None
-#   slug_url_kwarg = 'slug'
-#   pk_url_kwarg = 'pk'
-#
-#   template_name = None
-#   template_name_field = None
     template_name_suffix = '_base'
     
     @property
     @classmethod
     def namespace(cls):
+        """
+        
+        """
         if cls.namespace_name:
             return cls.namespace_name
         elif cls.model:
@@ -35,8 +28,7 @@ class SpaceMixin(DetailView):
     @classmethod
     def as_space(cls, **initkwargs):
         """
-        Namespace object definition
-        (compatible vith class base view mixin).
+        Namespace object definition (compatible vith class base view mixin).
         """
         # sanitize keyword arguments
         for key in initkwargs:

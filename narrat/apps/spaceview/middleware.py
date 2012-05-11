@@ -89,38 +89,3 @@ class SpaceviewMiddleware(object):
         response.context_data.update(context)
         
         return response
-    
-    
-        #print "### request ###"
-        #print request
-        #
-        #print "### request session ###"
-        #session = request.__dict__['session']
-        #for key in session.__dict__:
-        #    print key, " : ", session.__dict__[key]
-        #
-        #print "### request attributes ###"
-        #for key in request.__dict__:
-        #    print key,
-        #    print " : ",
-        #    print request.__dict__[key]
-        #
-        #print "### func ###"
-        #print func
-        #
-        #print "### args ###"
-        #for arg in args:
-        #    print arg
-        #
-        #print "### args ###"
-        #for key in kwargs:
-        #    print key,
-        #    print " : ",
-        #    print kwargs[val]
-        #
-        #print "### resolve ###"
-        #print resolve(request.path_info)
-        #
-        #print "### resolve tuple ###"
-        #a, b, c = resolve(request.path_info)
-        #print a, b, c
