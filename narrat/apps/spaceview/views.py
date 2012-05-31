@@ -4,31 +4,31 @@ from django.core.exceptions import ImproperlyConfigured
 from django.views.generic.detail import DetailView
 
 
-class SpaceMixin(DetailView):
+class SpaceView(DetailView):
     """
     Namespace object like class based view
     """
-    namespace_name = None
+    app_namespace = None
     template_name_suffix = '_base'
     
-    @property
     @classmethod
-    def namespace(cls):
+    def app_name(cls):
         """
         
         """
-        if cls.namespace_name:
-            return cls.namespace_name
+        if cls.app_namespace:
+            return cls.app_namespace
         elif cls.model:
             return smart_str(cls.model.__class__.__name__.lower())
         
-        raise ImproperlyConfigured(u"NamespaceMixin %s must define namespace_name or model"
+        raise ImproperlyConfigured(u"SpaceView %s must define app_namespace or model"
                                    % self.__class__.__name__)
     
     @classmethod
     def as_space(cls, **initkwargs):
         """
-        Namespace object definition (compatible vith class base view mixin).
+        Namespace object definition base on Class View.
+        Giving access to "object" and "context" variable
         """
         # sanitize keyword arguments
         for key in initkwargs:

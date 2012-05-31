@@ -41,10 +41,10 @@ Create the Space View in your reusable app and treat it like a Detail View (Clas
 
     # myapp/views.py
     from __future__ import absolute_import
-    from spaceview.views import SpaceMixin
+    from spaceview.views import SpaceView
     from .models import Myapp
     
-    class ProjectSpace(SpaceMixin):
+    class ProjectSpace(SpaceView):
         
         namespace = 'myapp'
         model = Myapp

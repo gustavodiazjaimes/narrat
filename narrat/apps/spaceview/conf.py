@@ -4,4 +4,4 @@ from appconf import AppConf
 
 class SpaceviewConf(AppConf):
     
-    SPACES = []
+    SPACES = []    # List of SpaceView based views
