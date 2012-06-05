@@ -14,7 +14,10 @@ class ProjectConf(AppConf):
         ('viewer',      _('Viewer')),
         ('away',        _('Away')),
     )
+    
     ROLES = [x for (x, y) in ROLES_DISPLAY]
+    
+    DEFAULT_ROLE = 'participant'
     
     NO_MEMBER_ROLES = ['away']
     

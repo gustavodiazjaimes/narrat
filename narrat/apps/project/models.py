@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from datetime import datetime
 
-from django.core.exceptions import ValidationError, FieldError
+from django.core.exceptions import ObjectDoesNotExist, ValidationError, FieldError
 from django.db import models
 from django.db.models import Count, signals
 from django.contrib.auth.models import User
@@ -15,7 +15,7 @@ from permissions.models import Role, PrincipalRoleRelation
 from permissions.utils import register_role, register_permission, get_role
 from taggit.managers import TaggableManager
 
-from taglike.models import KeywordItem, BadgeItem
+from taggit_wrap.models import KeywordTaggedItem, BadgeTaggedItem
 
 from .conf import settings
 from .managers import MemberManager
@@ -25,14 +25,19 @@ def project_install(sender, **kwargs):
     verbosity = kwargs.get('verbosity', 1)
     
     roles = []
+    perms = []
+    projects = Project.objects.all()
+    
     for role in settings.PROJECT_ROLES:
         r = register_role(role)
         roles.append(r)
     
-    perms = []
     for perm in settings.PROJECT_PERMISSIONS:
         p = register_permission(perm[1], perm[0], [Project])
         perms.append(p)
+        
+    for project in projects:
+        project._grant_permissions()
     
     if verbosity > 0:
         if any(roles):
@@ -48,10 +53,6 @@ def project_install(sender, **kwargs):
                 print p, ",",
             else:
                 print ""
-    
-    projects = Project.objects.all()
-    for project in projects:
-        project._grant_permissions()
 
 
 class Project(models.Model, PermissionBase):
@@ -67,7 +68,7 @@ class Project(models.Model, PermissionBase):
     private = models.BooleanField(_(u"private"), default=False)
     members = generic.GenericRelation('Member', content_type_field='content_type', object_id_field='content_id')
     
-    keywords = TaggableManager(through = KeywordItem, verbose_name=_(u"keywords"))
+    keywords = TaggableManager(through=KeywordTaggedItem, verbose_name=_(u"keywords"))
     # Add science category - http://es.wikipedia.org/wiki/Clasificaci%C3%B3n_Unesco
     # science = ???
     
@@ -79,12 +80,14 @@ class Project(models.Model, PermissionBase):
     
     def _grant_permissions(self, verbosity=0):
         roles_permissions = {}
+        
         for role_name in settings.PROJECT_ROLES_PERMISSIONS.keys():
+            roles_permissions[role_name] = []
             role = get_role(role_name)
+            
             if not role:
                 raise ValidationError(_(u"Role %(role)s doesn't exist") % {role:role_name})
             
-            roles_permissions[role_name] = []
             for perm in settings.PROJECT_ROLES_PERMISSIONS[role_name]:
                 is_perm = self.grant_permission(role, perm)
                 if not is_perm:
@@ -104,7 +107,7 @@ class Project(models.Model, PermissionBase):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('project_detail', [], {'project_slug': self.slug})
+        return ('project:project_detail', [], {'project_slug': self.slug})
     
     def save(self, *args, **kwargs):
         is_new = self.pk is None
@@ -120,7 +123,7 @@ class Project(models.Model, PermissionBase):
         
         try:
             return self.members.filter(user=user).get()
-        except Member.ObjectDoesNotExist:
+        except ObjectDoesNotExist:
             return None
     
     def member_count(self):
@@ -169,21 +172,14 @@ class Member(PrincipalRoleRelation):
     member_since = models.DateTimeField(_(u"Member Since"), default=datetime.now)
     away_since = models.DateTimeField(_(u"Away Since"), null=True)
     
-    badges = TaggableManager(_(u"Badge"), through = BadgeItem)
+    badges = TaggableManager(_(u"Badge"), through = BadgeTaggedItem)
     
     objects = MemberManager()
     
     class Meta:
         verbose_name = _(u"project member")
-        
     
-    def __unicode__(self):
-        return _(u"%(user)s is %(role)s of %(project)s") % {
-            "user": self.user,
-            "role": self.role,
-            "project": self.content,
-        }
-    
+
     def __init__(self, *args, **kwargs):
         super(Member, self).__init__(*args, **kwargs)
         
@@ -191,6 +187,13 @@ class Member(PrincipalRoleRelation):
         
         self.initial = {}
         self.initial['role'] = self.role if not is_new else None
+    
+    def __unicode__(self):
+        return _(u"%(user)s is %(role)s of %(project)s") % {
+            "user": self.user,
+            "role": self.role,
+            "project": self.content,
+        }
     
     def save(self, *args, **kwargs):
         is_new = self.pk is None
@@ -210,22 +213,36 @@ class Member(PrincipalRoleRelation):
         
         super(Member, self).save(*args, **kwargs)
     
-    def validate_unique(self, exclude=[]):
+    def clean_fields(self, exclude=None):
+        return super(Member, self).clean_fields(exclude)
+    
+    def validate_unique(self, exclude=None):
         if exclude:
             for e in exclude:
                 if e in ('user', 'content_type', 'content_id'):
                     return super(Member, self).validate_unique(exclude)
-        
-        try:
-            pm = Member.objects.get(user=self.user, content_type=self.content_type, content_id=self.content_id)
-        except Member.DoesNotExist:
-            pass
         else:
-            model_name = capfirst(pm._meta.verbose_name)
-            unique_error = _(u"%(model_name)s already exists.") % {
-                'model_name' : unicode(model_name)
-            }
-            raise ValidationError(unique_error)
+            is_new = self.pk is None
+            model_name = capfirst(self._meta.verbose_name)
+            
+            ### Validate user != None
+            if is_new and self.user == None:
+                user_error = _(u"Attribute user is required by %(model_name)s.") % {
+                    'model_name' : model_name
+                }
+                raise ValidationError(user_error)
+                
+            ### Validate unique_togueter = (user, project)
+            try:
+                member = Member.objects.get(user=self.user, content_type=self.content_type, content_id=self.content_id)
+            except Member.DoesNotExist:
+                pass
+            else:
+                if is_new or self.pk != member.pk:
+                    unique_error = _(u"%(model_name)s already exists.") % {
+                        'model_name' : model_name
+                    }
+                    raise ValidationError(unique_error)
         
         return super(Member, self).validate_unique(exclude)
     
@@ -256,12 +273,17 @@ class Member(PrincipalRoleRelation):
             no_member_roles.append(get_role(role))
         
         return self.role not in no_member_roles
+    
+    def get_role_display(self):
+        return self.role.name
 
 
 def add_projects_user(sender, **kwargs):
     user = kwargs['instance']
+    
     if hasattr(user, 'project'):
         raise FieldError
+    
     setattr(user, 'projects', Member.objects.filter(user=user))
 
 signals.post_init.connect(add_projects_user, sender=User, weak=False, dispatch_uid='project.member')

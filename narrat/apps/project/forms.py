@@ -14,7 +14,7 @@ from .models import Project, Member
 from .conf import settings
 
 roles = [get_role(role) for role in settings.PROJECT_ROLES]
-ROLES_CHOICES = [(role.id, _(unicode(role))) for role in roles]
+ROLES_CHOICES = [(role.pk, _(unicode(role))) for role in roles]
 
 
 # @@@ we should have auto slugs, even if suggested and overrideable
@@ -25,9 +25,9 @@ class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
         
-        instance = getattr(self, 'instance', None)
+        is_new = self.instance.pk is None
         
-        if not instance:
+        if is_new:
             slug_help_text = _(u"a short version of the name consisting only of letters, numbers, underscores and hyphens.")
         else:
             slug_help_text = _(u"warning: changing slug will cause urls changes, hyperlinks could be lose.")
@@ -47,6 +47,7 @@ class MemberForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MemberForm, self).__init__(*args, **kwargs)
         
+        self.fields['user'].required = True
         self.fields['role'].choices = ROLES_CHOICES
         self.fields['badges'].required = False
         

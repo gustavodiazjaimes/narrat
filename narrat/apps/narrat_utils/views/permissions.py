@@ -16,10 +16,9 @@ class PermissionMixin(object):
             return True
         
         user = request.user
+        space = request.space
         if user.is_authenticated():
-            space = request.space
             _object = space.object if space else self.get_object()
-            
             return _object.has_permission(user, perm)
         
         return False
